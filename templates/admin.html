@@ -1,0 +1,32 @@
+{% extends "base.html" %}{% block content %}
+<section class="admin-head">
+    <h1>Панель администратора</h1><a class="button" href="{{url_for('logout')}}">Выйти</a>
+</section>
+<section class="card">
+    <h2>Добавить книгу</h2>
+    <form class="inline" method="post" action="{{url_for('add_book')}}"><input name="title" placeholder="Название" required><input name="author" placeholder="Автор" required><input name="genre" placeholder="Жанр"><input name="year" type="number" placeholder="Год"><input name="copies" type="number" min="1" value="1"><button class="button">Добавить</button></form><table><tr><th>Книга</th><th>Автор</th><th>Жанр</th><th>Экз.</th><th></th></tr>{% for b in books %}<tr><td>{{b.title}}</td><td>{{b.author}}</td><td>{{b.genre}}</td><td>{{b.copies}}</td><td><form method="post" action="{{url_for('delete_book',id=b.id)}}"><button class="danger">Удалить</button></form></td></tr>{% endfor %}</table>
+</section>
+<section class="card"><h2>Пользователи</h2><table><tr><th>ФИО</th><th>Email</th><th>Телефон</th><th></th></tr>{% for u in users %}<tr><td>{{u.fio}}</td><td>{{u.email}}</td><td>{{u.phone}}</td><td><form method="post" action="{{url_for('delete_user',id=u.id)}}"><button class="danger">Удалить</button></form></td></tr>{% endfor %}</table></section>
+<section class="card"><h2>Бронирования</h2><table><tr><th>Пользователь</th><th>Компьютер</th><th>Дата</th><th>Время</th><th></th></tr>{% for b in bookings %}<tr><td>{{b.user_name}}</td><td>{{b.computer}}</td><td>{{b.booking_date}}</td><td>{{b.booking_time}}</td><td><form method="post" action="{{url_for('delete_booking',id=b.id)}}"><button class="danger">Удалить</button></form></td></tr>{% endfor %}</table></section>
+<section class="card"><h2>Добавить новость</h2><form method="post" action="{{url_for('add_news')}}" enctype="multipart/form-data"><label>Заголовок<input name="title" required>
+    </label>
+
+    <label>
+        Дата
+        <input name="date" type="date" max="{{ today }}" required>
+    </label>
+
+    <label>
+        Текст
+        <textarea name="text" required></textarea>
+    </label>
+
+    <label>
+        Картинка новости
+        <input type="file" name="image" accept=".png,.jpg,.jpeg,.webp">
+    </label>
+
+    <button class="button">Опубликовать</button>
+</form><h3>Новости</h3>{% for n in news %}<div class="news-row"><div><b>{{n.date}}</b><strong>{{n.title}}</strong><p>{{n.text}}</p></div><form method="post" action="{{url_for('delete_news',id=n.id)}}"><button class="danger">Удалить</button></form></div>{% endfor %}</section>
+<section class="card"><h2>Бронирования книг</h2><table><tr><th>Пользователь</th><th>Книга</th><th>Дата бронирования</th></tr>{% for r in book_reservations %}<tr><td>{{r.user_fio}}</td><td>{{r.book_title}}</td><td>{{r.reserved_at}}</td></tr>{% endfor %}</table></section>
+{% endblock %}

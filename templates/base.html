@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}One Star Library{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<header class="topbar">
+  <a href="{{ url_for('index') }}" class="logo-wrap">
+    <img class="logo" src="{{ url_for('static', filename='images/logo.png') }}" alt="Логотип One Star Library" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+    <span class="logo-fallback" style="display:none">★</span>
+  </a>
+  <div class="brand">One Star Library</div>
+  <nav class="nav">
+    <a href="{{ url_for('index') }}" class="{% if request.endpoint == 'index' %}active{% endif %}">Главная</a>
+    <a href="{{ url_for('about') }}" class="{% if request.endpoint == 'about' %}active{% endif %}">О нас</a>
+    <a href="{{ url_for('services') }}" class="{% if request.endpoint == 'services' %}active{% endif %}">Сервисы</a>
+    <a href="{{ url_for('books') }}" class="{% if request.endpoint == 'books' %}active{% endif %}">Книги</a>
+    {% if session.get('user') %}<a href="{{ url_for('bookings') }}">Бронирования</a><a href="{{ url_for('logout') }}">Выйти</a>{% else %}<a href="{{ url_for('register') }}">Регистрация</a><a href="{{ url_for('login') }}">Вход</a>{% endif %}
+    {% if session.get('admin') %}<a href="{{ url_for('admin') }}">Админ</a>{% endif %}
+    <button type="button" onclick="document.getElementById('accessibility-panel').classList.toggle('open')">♿</button>
+  </nav>
+</header>
+<div id="accessibility-panel" class="accessibility-panel">
+  <h3>Версия для слабовидящих</h3>
+  <button onclick="toggleFontSize()">Шрифт 1.5×</button>
+  <button onclick="toggleSerif()">Шрифт с засечками</button>
+  <button onclick="setScheme('normal')">Обычная схема</button>
+  <button onclick="setScheme('white-black')">Чёрный на белом</button>
+  <button onclick="setScheme('black-yellow')">Жёлтый на чёрном</button>
+  <button onclick="toggleImages()">Скрыть/показать изображения</button>
+  <button class="wide" onclick="resetAccessibility()">Сбросить настройки</button>
+  <div id="accessibility-status"></div>
+</div>
+<main class="container">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-list">
+        {% for category, message in messages %}
+          <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
+<footer class="footer">© One Star Library</footer>
+<script src="{{ url_for('static', filename='js/accessibility.js') }}"></script>
+</body>
+</html>

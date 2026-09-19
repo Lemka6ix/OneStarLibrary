@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Сервисы — One Star Library{% endblock %}
+{% block content %}
+<section class="section services-section">
+  <h2>Технологии и цифровые ресурсы</h2>
+  <div class="service-list">
+    <article class="service-row">
+      <div class="service-text"><h3>Компьютеры и интернет:</h3><p>Бесплатный доступ к компьютерам, высокоскоростному интернету и принтеру/сканеру/ксероксу.</p></div>
+      <img src="{{ url_for('static', filename='images/pict1_for_services.jpeg') }}" alt="Компьютеры и интернет" onerror="this.style.display='none';">
+    </article>
+    <article class="service-row">
+      <div class="service-text"><h3>Электронная библиотека</h3><p>Книги, журналы и фильмы всегда под рукой.</p></div>
+      <img src="{{ url_for('static', filename='images/pict2_for_services.jpg') }}" alt="Электронная библиотека" onerror="this.style.display='none';">
+    </article>
+  </div>
+</section>
+
+<section class="section services-section">
+  <h2>Образование и сообщество</h2>
+  <div class="service-list">
+    <article class="service-row reverse">
+      <img src="{{ url_for('static', filename='images/pict3_for_services.jpeg') }}" alt="Учебные и переговорные комнаты" onerror="this.style.display='none';">
+      <div class="service-text"><h3>Учебные и переговорные комнаты:</h3><p>Бесплатные залы для индивидуальной работы, групповых проектов или встреч клубов (бронирование онлайн).</p></div>
+    </article>
+    <article class="service-row reverse">
+      <img src="{{ url_for('static', filename='images/pict4_for_services.jpg') }}" alt="Мероприятия и воркшопы" onerror="this.style.display='none';">
+      <div class="service-text"><h3>Мероприятия и воркшопы:</h3><p>Регулярные лекции, авторские вечера, мастер-классы по рукоделию, финансовой грамотности, программированию для детей.</p></div>
+    </article>
+    <article class="service-row reverse">
+      <img src="{{ url_for('static', filename='images/pict5_for_services.jpg') }}" alt="Детский уголок" onerror="this.style.display='none';">
+      <div class="service-text"><h3>Детский уголок:</h3><p>Уютное пространство для маленьких посетителей библиотеки.</p></div>
+    </article>
+  </div>
+</section>
+
+<section class="section services-section">
+  <h2>Новости</h2>
+  <div class="service-list">
+    {% for item in news %}<article class="service-row">
+      <div class="service-text"><div class="news-date">{{ item.date }}</div><h3>{{ item.title }}</h3><p>{{ item.text }}</p></div>
+      {% if item.image %}
+      <img src="{{ url_for('static', filename='uploads/' + item.image) }}" alt="{{ item.title }}">
+      {% endif %}
+    </article>{% endfor %}
+  </div>
+</section>
+{% endblock %}

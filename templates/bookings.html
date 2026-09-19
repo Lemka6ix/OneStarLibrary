@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block content %}
+<section class="form-card"><h1>Бронирование компьютера</h1><p>Бронирование оформляется на: <strong>{{ session.get('user_name') }}</strong></p><form method="post"><label>Компьютер<select name="computer"><option>Компьютер №1</option><option>Компьютер №2</option><option>Компьютер №3</option><option>Компьютер №4</option></select></label><label>Дата<input type="date" name="booking_date" required></label><label>Время<input type="time" name="booking_time" required></label><button class="button">Забронировать</button></form></section>
+<section class="card"><h2>Ближайшие бронирования</h2><table><tr><th>Пользователь</th><th>Компьютер</th><th>Дата</th><th>Время</th></tr>{% for b in bookings %}<tr><td>{{b.user_name}}</td><td>{{b.computer}}</td><td>{{b.booking_date}}</td><td>{{b.booking_time}}</td></tr>{% endfor %}</table></section>
+{% endblock %}

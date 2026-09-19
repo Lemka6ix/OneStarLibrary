@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="form-card">
+  <h1>Вход в аккаунт</h1>
+  <form method="post">
+    <label>Email
+      <input type="text" name="login" required autocomplete="email" placeholder="name@example.ru">
+    </label>
+    <label>Пароль
+      <input type="password" name="password" required autocomplete="current-password">
+    </label>
+    <button class="button" type="submit">Войти</button>
+    <p class="form-note">Нет аккаунта? <a href="{{ url_for('register') }}">Зарегистрироваться</a></p>
+    <p class="form-note"></p>
+  </form>
+</section>
+{% endblock %}

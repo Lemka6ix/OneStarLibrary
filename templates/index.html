@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}Главная — One Star Library{% endblock %}
+{% block content %}
+<section class="home-block">
+  <h1>Мир начинается здесь</h1>
+  <div class="home-row">
+    <img class="home-image" src="{{ url_for('static', filename='images/pict1_for_main.png') }}" alt="Библиотека">
+    <div class="home-text">
+      <p>В суете повседневной жизни есть место, где время замедляется. Место, где живут истории, идеи и великие умы.</p>
+      <p>Наша библиотека — это не просто собрание книг, а целая вселенная знаний, открытая каждому.</p>
+    </div>
+  </div>
+</section>
+
+<section class="home-block">
+  <h2>Твоя территория идей</h2>
+  <div class="home-row reverse">
+    <div class="home-text">
+      <p>Библиотека — это совсем не то, что вы думали. Это современный центр, где бумажные страницы встречаются с цифровыми технологиями.</p>
+      <p>Здесь можно не только взять книгу, но и поработать, найти единомышленников, посетить лекцию или просто сменить обстановку.</p>
+    </div>
+    <img class="home-image" src="{{ url_for('static', filename='images/pict2_for_main.png') }}" alt="Современное пространство библиотеки">
+  </div>
+</section>
+
+<section class="home-block">
+  <h2>Наша миссия</h2>
+  <div class="home-row mission-row">
+    <img class="home-image" src="{{ url_for('static', filename='images/pict3_for_main.png') }}" alt="Пространство библиотеки">
+    <div class="home-text">
+      <p>Библиотека «One star» стремится быть краеугольным камнем нашего сообщества, обеспечивая свободный доступ к информации, способствуя непрерывному обучению и вдохновляя на творчество людей всех возрастов</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Новости</h2>
+  <div class="news-list">
+    {% for item in news %}
+    <article class="news-row">
+      <div class="news-text">
+        <div class="news-date">{{ item.date }}</div>
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.text }}</p>
+      </div>
+      {% if item.image %}
+      <img class="news-image" src="{{ url_for('static', filename='uploads/' + item.image) }}" alt="{{ item.title }}">
+      {% endif %}
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

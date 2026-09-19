@@ -1,0 +1,22 @@
+{% extends "base.html" %}{% block content %}
+<section class="form-card"><h1>Регистрация пользователя</h1><form method="post" id="register-form">
+<label>Фамилия<input name="surname" class="fio-input" required value="{{ request.form.get('surname','') }}"></label>
+<label>Имя<input name="first_name" class="fio-input" required value="{{ request.form.get('first_name','') }}"></label>
+<label>Отчество<input name="patronymic" class="fio-input" required value="{{ request.form.get('patronymic','') }}"></label>
+<label>Email<input type="email" name="email" required autocomplete="email" placeholder="name@example.ru"></label>
+<label>Телефон<input type="tel" name="phone" required autocomplete="tel" placeholder="+79991234567" inputmode="numeric" maxlength="12"></label>
+<label>Пароль<input type="password" name="password" required minlength="8"></label>
+<label>Дата рождения<input type="date" name="birthdate" max="{{ today }}"></label>
+<label>Пол<select name="gender"><option>Не указан</option><option>Мужской</option><option>Женской</option></select></label>
+<label class="check-label"><input type="checkbox" name="consent" value="1" required><span>Я согласен на обработку персональных данных</span></label>
+<button class="button" type="submit">Зарегистрироваться</button>
+<script>document.querySelectorAll('.fio-input').forEach(input => {
+    input.addEventListener('input', function () {
+        this.value = this.value.replace(/[0-9]/g, '');
+        if (this.value.length > 0) {
+            this.value = this.value[0].toUpperCase() + this.value.slice(1);
+        }
+    });
+});</script>
+</form></section>
+{% endblock %}

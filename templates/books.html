@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block content %}
+<section class="card"><div class="heading"><h1>Каталог книг</h1><form><input name="q" value="{{q}}" placeholder="Поиск по названию, автору, жанру"><button class="button">Найти</button></form></div>
+<table><tr><th>Название</th><th>Автор</th><th>Жанр</th><th>Год</th><th>Экземпляры</th><th>Действие</th></tr>{% for b in books %}<tr><td>{{b.title}}</td><td>{{b.author}}</td><td>{{b.genre}}</td><td>{{b.year or "—"}}</td><td>{{b.copies - reserved_counts.get(b.id, 0)}} из {{b.copies}}</td><td>{% if session.get('user') %}{% if reserved_counts.get(b.id, 0) < b.copies %}<form method="post" action="{{url_for('reserve_book', book_id=b.id)}}"><button class="button">Забронировать</button></form>{% else %}Нет свободных{% endif %}{% else %}<a class="button" href="{{url_for('login')}}">Войти для бронирования</a>{% endif %}</td></tr>{% endfor %}</table></section>
+{% endblock %}
